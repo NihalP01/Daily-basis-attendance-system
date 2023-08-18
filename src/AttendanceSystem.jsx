@@ -68,7 +68,7 @@ const AttendanceSystem = () => {
     });
   };
 
-  function getStatus(id){
+  function getStatus(id) {
     //implement
   }
 
@@ -104,8 +104,8 @@ const AttendanceSystem = () => {
                 </tr>
                 {item.attendance.map((val) => (
                   <tr key={val.id}>
-                    <td>{val.status}</td>
                     <td>{val.attendanceDate}</td>
+                    <td>{val.status}</td>
                   </tr>
                 ))}
               </table>
