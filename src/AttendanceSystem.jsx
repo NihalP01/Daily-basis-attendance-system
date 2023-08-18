@@ -8,6 +8,8 @@ const AttendanceSystem = () => {
   const [attendanceList, setAttendanceList] = useState([]);
   const [showTable, setShowTable] = useState(false);
 
+  const [changeDate, setChangeDate] = useState();
+
   const employeeList = [
     {
       employeeId: 0,
@@ -35,10 +37,11 @@ const AttendanceSystem = () => {
       attendance: [
         {
           status,
-          attendanceDate: Utils.formattedDate(),
+          attendanceDate: Utils.formattedDate(changeDate),
         },
       ],
     };
+
     setAttendanceList((prevList) => {
       const newList = [...prevList];
       const index = newList.findIndex((item) => item.id === id);
