@@ -1,9 +1,18 @@
 const AttendanceList = (props) => {
-  const { employeeId, employeeName, onAttendanceChange } = props;
+  const { employeeId, employeeName, onAttendanceChange, attendanceStatus } =
+    props;
+
+  const handleColor = () => {
+    if (attendanceStatus === "absent") {
+      return "red";
+    } else {
+      return "green";
+    }
+  };
 
   return (
     <div style={{ display: "flex" }}>
-      <p>{employeeName}</p>
+      <p style={{ color: handleColor() }}>{employeeName}</p>
       <select
         onChange={(e) =>
           onAttendanceChange(employeeId, employeeName, e.target.value)

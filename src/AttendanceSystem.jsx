@@ -31,6 +31,7 @@ const AttendanceSystem = () => {
     const attendanceData = {
       id,
       name,
+      currentStatus: status,
       attendance: [
         {
           status,
@@ -47,25 +48,32 @@ const AttendanceSystem = () => {
         const lastAttendance =
           newList[index].attendance[newList[index].attendance.length - 1];
 
-        if (lastAttendance.status !== status) {
-          if (
-            lastAttendance.attendanceDate !==
-            attendanceData.attendance[0].attendanceDate
-          ) {
-            newList[index].attendance.push({
-              status: attendanceData.attendance[0].status,
-              attendanceDate: attendanceData.attendance[0].attendanceDate,
-            });
-          }
-          newList[index].attendance[newList[index].attendance.length - 1] = {
+        if (
+          lastAttendance.attendanceDate !==
+          attendanceData.attendance[0].attendanceDate
+        ) {
+          newList[index].attendance.push({
             status: attendanceData.attendance[0].status,
             attendanceDate: attendanceData.attendance[0].attendanceDate,
-          };
+          });
         }
+        newList[index].currentStatus = status;
+        newList[index].attendance[newList[index].attendance.length - 1] = {
+          status: attendanceData.attendance[0].status,
+          attendanceDate: attendanceData.attendance[0].attendanceDate,
+        };
       }
       return newList;
     });
   };
+
+  function getStatus(id) {
+    const attendance = attendanceList.find((a) => a.id === id);
+    if (attendance) {
+      return attendance.currentStatus;
+    }
+    return "absent";
+  }
 
   const handleShowTable = () => {
     setShowTable((prev) => !prev);
@@ -79,6 +87,7 @@ const AttendanceSystem = () => {
             key={item.employeeId}
             employeeId={item.employeeId}
             employeeName={item.employeeName}
+            attendanceStatus={getStatus(item.employeeId)}
             onAttendanceChange={onAttendanceChange}
           />
         ))}
@@ -98,8 +107,8 @@ const AttendanceSystem = () => {
                 </tr>
                 {item.attendance.map((val) => (
                   <tr key={val.id}>
-                    <td>{val.status}</td>
                     <td>{val.attendanceDate}</td>
+                    <td>{val.status}</td>
                   </tr>
                 ))}
               </table>
