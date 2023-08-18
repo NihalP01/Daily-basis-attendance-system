@@ -2,7 +2,6 @@ import { useState } from "react";
 import AttendanceList from "./AttendanceList";
 import { Utils } from "./Utils";
 
-
 const AttendanceSystem = () => {
   const [attendanceList, setAttendanceList] = useState([]);
   const [showTable, setShowTable] = useState(false);
