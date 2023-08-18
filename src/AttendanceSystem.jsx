@@ -48,28 +48,31 @@ const AttendanceSystem = () => {
         const lastAttendance =
           newList[index].attendance[newList[index].attendance.length - 1];
 
-        if (lastAttendance.status !== status) {
-          if (
-            lastAttendance.attendanceDate !==
-            attendanceData.attendance[0].attendanceDate
-          ) {
-            newList[index].attendance.push({
-              status: attendanceData.attendance[0].status,
-              attendanceDate: attendanceData.attendance[0].attendanceDate,
-            });
-          }
-          newList[index].attendance[newList[index].attendance.length - 1] = {
+        if (
+          lastAttendance.attendanceDate !==
+          attendanceData.attendance[0].attendanceDate
+        ) {
+          newList[index].attendance.push({
             status: attendanceData.attendance[0].status,
             attendanceDate: attendanceData.attendance[0].attendanceDate,
-          };
+          });
         }
+        newList[index].currentStatus = status;
+        newList[index].attendance[newList[index].attendance.length - 1] = {
+          status: attendanceData.attendance[0].status,
+          attendanceDate: attendanceData.attendance[0].attendanceDate,
+        };
       }
       return newList;
     });
   };
 
   function getStatus(id) {
-    //implement
+    const attendance = attendanceList.find((a) => a.id === id);
+    if (attendance) {
+      return attendance.currentStatus;
+    }
+    return "absent";
   }
 
   const handleShowTable = () => {
