@@ -2,11 +2,11 @@ import { useState } from "react";
 import AttendanceList from "./AttendanceList";
 import { Utils } from "./Utils";
 
-//To test attendance for different days, add +1 to day or month in the Utils file.
-
 const AttendanceSystem = () => {
   const [attendanceList, setAttendanceList] = useState([]);
   const [showTable, setShowTable] = useState(false);
+
+  const [changeDate, setChangeDate] = useState(1);
 
   const employeeList = [
     {
@@ -35,10 +35,11 @@ const AttendanceSystem = () => {
       attendance: [
         {
           status,
-          attendanceDate: Utils.formattedDate(),
+          attendanceDate: Utils.formattedDate(changeDate),
         },
       ],
     };
+
     setAttendanceList((prevList) => {
       const newList = [...prevList];
       const index = newList.findIndex((item) => item.id === id);
@@ -79,18 +80,34 @@ const AttendanceSystem = () => {
     setShowTable((prev) => !prev);
   };
 
+  const handleDateChange = () => {
+    setChangeDate((prev) => prev + 1);
+  };
+
   return (
     <div>
-      <div>
-        {employeeList.map((item) => (
-          <AttendanceList
-            key={item.employeeId}
-            employeeId={item.employeeId}
-            employeeName={item.employeeName}
-            attendanceStatus={getStatus(item.employeeId)}
-            onAttendanceChange={onAttendanceChange}
-          />
-        ))}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          maxWidth: "400px",
+        }}
+      >
+        <div>
+          {employeeList.map((item) => (
+            <AttendanceList
+              key={item.employeeId}
+              employeeId={item.employeeId}
+              employeeName={item.employeeName}
+              attendanceStatus={getStatus(item.employeeId)}
+              onAttendanceChange={onAttendanceChange}
+            />
+          ))}
+        </div>
+        <div>
+          <p>Current date: {Utils.formattedDate(changeDate)}</p>
+          <button onClick={handleDateChange}>Change date</button>
+        </div>
       </div>
       <div style={{ marginTop: "2rem" }}>
         <button onClick={handleShowTable}>Show attendance</button>
