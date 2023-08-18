@@ -8,7 +8,7 @@ const AttendanceSystem = () => {
   const employeeList = [
     {
       employeeId: 0,
-      employeeName: "Employee-1"
+      employeeName: "Employee-1New"
     },
     {
       employeeId: 1,
