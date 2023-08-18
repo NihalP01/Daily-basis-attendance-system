@@ -31,6 +31,7 @@ const AttendanceSystem = () => {
     const attendanceData = {
       id,
       name,
+      currentStatus: status,
       attendance: [
         {
           status,
@@ -67,6 +68,10 @@ const AttendanceSystem = () => {
     });
   };
 
+  function getStatus(id){
+    //implement
+  }
+
   const handleShowTable = () => {
     setShowTable((prev) => !prev);
   };
@@ -79,6 +84,7 @@ const AttendanceSystem = () => {
             key={item.employeeId}
             employeeId={item.employeeId}
             employeeName={item.employeeName}
+            attendanceStatus={getStatus(item.employeeId)}
             onAttendanceChange={onAttendanceChange}
           />
         ))}
